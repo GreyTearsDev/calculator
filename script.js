@@ -33,14 +33,29 @@ function operate(operator, firstNumber, secondNumber) {
   }
 }
 
-let digitButtons = Array.from(document.querySelectorAll(".digit"));
-digitButtons.forEach((e) => e.addEventListener("click", (event) => displayDigitOnScreen(event)))
-// add event listener to the buttons
+let digitButtons = Array.from(document.querySelectorAll(".digit")); // gets all of the digit elements
+// add listener for displaying the digits on the screen
+digitButtons.forEach((e) =>
+  e.addEventListener("click", (event) => displayDigitOnScreen(event))
+);
+// add listener for storing the digits
+digitButtons.forEach((e) =>
+  e.addEventListener("click", (event) => storeDigits(event))
+);
 
-
-
-function displayDigitOnScreen(event) {
-	let display = document.querySelector(".display");
-	let displayValue = event.target.textContent;
-  display.textContent += displayValue;
+// Stores the value of the button that was clicked
+let displayValue = [];
+function storeDigits(event) {
+  displayValue.push(event.target.textContent);
 }
+
+// Displays the value of the clicked buttons on the screen
+function displayDigitOnScreen(event) {
+  let display = document.querySelector(".display"); // gets the dom element
+  let displayValueOnScreen = event.target.textContent; // gets the content of the clicked buttons
+  display.textContent += displayValueOnScreen; // adds the value of the clicked button to the screen
+}
+
+console.log(displayValue);
+
+//for every character in the display, if it is an operator,
