@@ -15,6 +15,15 @@ digits.forEach((x) =>
   })
 );
 
+digits.forEach((x) =>
+  x.addEventListener("click", (event) => {
+    let displayScreen = document.querySelector('.display');
+    let input = event.target.textContent;
+    displayScreen.textContent += input;
+  })
+);
+
+
 //====================FUNCTIONS==================//
 
 function add(firstNumber, secondNumber) {
@@ -45,3 +54,4 @@ function operate(operator, firstNumber, secondNumber) {
     subtract(firstNumber, secondNumber);
   }
 }
+
