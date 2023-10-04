@@ -3,6 +3,8 @@ let firstNumber;
 let operator;
 let secondNumber;
 let digits = Array.from(document.querySelectorAll(".digit"));
+let functions = Array.from(document.querySelectorAll(".fucntion"));
+let displayScreen = document.querySelector(".display");
 let displayValue = [];
 let inputNumbers = [];
 
@@ -16,13 +18,12 @@ digits.forEach((x) =>
 );
 
 digits.forEach((x) =>
-  x.addEventListener("click", (event) => {
-    let displayScreen = document.querySelector('.display');
-    let input = event.target.textContent;
-    displayScreen.textContent += input;
-  })
+  x.addEventListener("click", (event) => displayNumbers(event))
 );
 
+functions.forEach((x) =>
+  x.addEventListener("click", (event) => displayFunctions(event))
+);
 
 //====================FUNCTIONS==================//
 
@@ -53,5 +54,15 @@ function operate(operator, firstNumber, secondNumber) {
   } else if (operator == "-") {
     subtract(firstNumber, secondNumber);
   }
+}
+
+function displayNumbers(event) {
+  let input = event.target.textContent;
+  displayScreen.textContent += input;
+}
+
+function displayFunctions(event) {
+  let input = event.target.textContent;
+  displayScreen.textContent += input;
 }
 
