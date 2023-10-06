@@ -2,6 +2,10 @@
 let digits = Array.from(document.querySelectorAll(".digit"));
 let displayScreen = document.querySelector(".display");
 let displayValues = [];
+let firstNumber;
+let secondNumber;
+let operator = '';
+let result;
 
 //==============EVENT LISTENERS================//
 
@@ -31,16 +35,16 @@ function divide(firstNumber, secondNumber) {
 }
 
 function operate(operator, firstNumber, secondNumber) {
-  //
-  if (operator == "*") {
-    displayScreen.textContent += multiply(firstNumber, secondNumber);
-  } else if (operator == "/") {
-    divide(firstNumber, secondNumber);
-  } else if (operator == "+") {
-    add(firstNumber, secondNumber);
-  } else if (operator == "-") {
-    subtract(firstNumber, secondNumber);
+  if (operator === "x") {
+    return multiply(firstNumber, secondNumber);
+  } else if (operator === "/") {
+    return divide(firstNumber, secondNumber);
+  } else if (operator === "+") {
+    return add(firstNumber, secondNumber);
+  } else if (operator === "-") {
+    return subtract(firstNumber, secondNumber);
   }
+  return 0;
 }
 
 function displayOnScreen(event) {
@@ -51,12 +55,8 @@ function displayOnScreen(event) {
 function saveNumber(event) {
   let input = event.target.textContent;
   let regexDigitPattern = /[0-9]/.test(input);
-  let regexOperatorPattern = /[+\-/*]/.test(input);
+  let regexOperatorPattern = /[+\-/x]/.test(input);
   let regexEqualPattern = /[=]/.test(input);
-  let firstNumber;
-  let secondNumber;
-  let operator;
-
 
   if (regexDigitPattern) {
     displayValues.push(input);
@@ -67,7 +67,8 @@ function saveNumber(event) {
     displayValues = []; // Clear displayValues for the next number
   } else if (regexEqualPattern) {
     secondNumber = parseFloat(displayValues.join(""));
-    operate(operator, firstNumber, secondNumber);
+    result = operate(operator, firstNumber, secondNumber);
     displayValues = []; // Clear displayValues after calculation
+    displayScreen.textContent += result;
   }
 }
