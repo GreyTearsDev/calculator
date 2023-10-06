@@ -75,7 +75,7 @@ function saveNumber(event) {
     result = operate(operator, firstNumber, secondNumber);
     displayValues = []; // Clear displayValues after calculation
     displayValues.push(result); //Save the current result for later calculations
-    displayScreen.textContent = result;
+    displayScreen.textContent = result.toFixed(12);
     firstNumber = result;
   } else if (input === "C") {
     // Clear the variables for new operations
