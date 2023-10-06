@@ -4,7 +4,7 @@ let displayScreen = document.querySelector(".display");
 let displayValues = [];
 let firstNumber;
 let secondNumber;
-let operator = '';
+let operator = "";
 let result;
 
 //==============EVENT LISTENERS================//
@@ -69,6 +69,14 @@ function saveNumber(event) {
     secondNumber = parseFloat(displayValues.join(""));
     result = operate(operator, firstNumber, secondNumber);
     displayValues = []; // Clear displayValues after calculation
-    displayScreen.textContent += result;
+    displayValues.push(result); //Save the current result for later calculations
+    displayScreen.textContent = result;
+    firstNumber = result;
+  } else if (input === "C") {
+    // Clear the variables for new operations
+    displayScreen.textContent = "";
+    displayValues = [];
+    firstNumber = "";
+    secondNumber = "";
   }
 }
