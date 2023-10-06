@@ -9,73 +9,83 @@ html {
 }
 
 
+body {
+  background-color: #5a5b60;
+}
 
 .calculator {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 
 .main-container {
-  border: 1px solid black;
+  background-color: #a0a3ae;
+  border-radius: 5px;
   width: 400px;
   height: 400px;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: 10px 10px #00000021;
 }
 
 .display {
-  border: 1px solid rgb(17, 198, 138);
+  background-color: #ecedef;
   flex-basis: 100px;
   margin-bottom: 4px;
+  border-radius: 5px;
+  box-shadow: 2px 2px #0000002d;
 }
 
 .button-container {
-  border: 1px solid rgb(255, 44, 7);
   flex-grow: 2;
   display: flex;
+  background-color: #a0a3ae;
 }
 
 .container{
-  border: 1px solid rgb(17, 198, 138);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .function-container {
-  flex-grow: 1;
-  flex-basis: 25px;
-  border: 1px solid rgb(252, 255, 51);
-  padding: 2px;
+  padding: 1px;
   gap: 2px;
+}
+
+.function-container > .separator {
+ background-color: #a0a3ae;
+ padding: 1px;
 }
 
 .separator {
   display: flex;
-  flex-grow: 1;
+  flex-basis: 100%;
   padding: 2px;
   gap: 4px
 }
 
 button {
-  flex-grow: 1;
-  background-color: transparent;
-  border: 0.5px solid black;
+  flex-basis: 100%;
+  background-color: #c6c8ce;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px #0000002d;
+
 
 }
 
 .digit-container {
   
-  
 }
+
 
 .display {
   overflow: hidden;
-  
+  font-size: xx-large;
   color: black;
   display: flex;
   flex-wrap: wrap;
