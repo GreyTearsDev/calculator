@@ -57,10 +57,13 @@ function saveNumber(event) {
   let regexDigitPattern = /[0-9]/.test(input);
   let regexOperatorPattern = /[+\-/x]/.test(input);
   let regexEqualPattern = /[=]/.test(input);
-
+  let regexDeletePattern = /[DEL]/.test(input);
+  console.log(input)
   // if user deletes, before the number gets assign to the variables, pop the last number out
+  if (regexDeletePattern) {
+    console.log(displayScreen[displayScreen.length - 1].textContent)
 
-  if (regexDigitPattern) {
+  }else if (regexDigitPattern) {
     displayValues.push(input);
   } else if (regexOperatorPattern) {
     // Handle operators here, set operator variable

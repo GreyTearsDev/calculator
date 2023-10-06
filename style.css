@@ -32,11 +32,17 @@ body {
 }
 
 .display {
-  background-color: #ecedef;
+  background: linear-gradient(180deg, #ecedef, #cdcdd0 );
   flex-basis: 100px;
   margin-bottom: 4px;
   border-radius: 5px;
   box-shadow: 2px 2px #0000002d;
+  overflow: hidden;
+  font-size: xx-large;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .button-container {
@@ -61,6 +67,11 @@ body {
  padding: 1px;
 }
 
+.function-container > .separator > button {
+  background: linear-gradient(180deg,   #5a5b60,  #4d4d51 );
+  color: white;
+ }
+
 .separator {
   display: flex;
   flex-basis: 100%;
@@ -70,23 +81,10 @@ body {
 
 button {
   flex-basis: 100%;
-  background-color: #c6c8ce;
+  background: linear-gradient(180deg,  #c6c8ce, #b1b2b9 );
   border: none;
   border-radius: 5px;
   box-shadow: 2px 2px #0000002d;
 
 
-}
-
-.digit-container {
-  
-}
-
-
-.display {
-  overflow: hidden;
-  font-size: xx-large;
-  color: black;
-  display: flex;
-  flex-wrap: wrap;
 }
