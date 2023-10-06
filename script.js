@@ -31,7 +31,13 @@ function multiply(firstNumber, secondNumber) {
 }
 
 function divide(firstNumber, secondNumber) {
-  return firstNumber / secondNumber;
+  if (firstNumber == 0 && secondNumber == 0) {
+    return "Undefined!"
+  } else {
+    return firstNumber / secondNumber;
+  }
+
+  
 }
 
 function operate(operator, firstNumber, secondNumber) {
@@ -54,16 +60,12 @@ function displayOnScreen(event) {
 
 function saveNumber(event) {
   let input = event.target.textContent;
-  let regexDigitPattern = /[0-9]/.test(input);
+  let regexDigitPattern = /[0-9/.]/.test(input);
   let regexOperatorPattern = /[+\-/x]/.test(input);
   let regexEqualPattern = /[=]/.test(input);
-  let regexDeletePattern = /[DEL]/.test(input);
-  console.log(input)
-  // if user deletes, before the number gets assign to the variables, pop the last number out
-  if (regexDeletePattern) {
-    console.log(displayScreen[displayScreen.length - 1].textContent)
-
-  }else if (regexDigitPattern) {
+  let regexClearPattern = /[C]/.test(input);
+  
+  if (regexDigitPattern) {
     displayValues.push(input);
   } else if (regexOperatorPattern) {
     // Handle operators here, set operator variable
@@ -75,9 +77,9 @@ function saveNumber(event) {
     result = operate(operator, firstNumber, secondNumber);
     displayValues = []; // Clear displayValues after calculation
     displayValues.push(result); //Save the current result for later calculations
-    displayScreen.textContent = result.toFixed(12);
+    displayScreen.textContent = result;
     firstNumber = result;
-  } else if (input === "C") {
+  } else if (regexClearPattern ) {
     // Clear the variables for new operations
     displayScreen.textContent = "";
     displayValues = [];
