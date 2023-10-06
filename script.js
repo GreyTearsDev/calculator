@@ -60,11 +60,13 @@ function displayOnScreen(event) {
 
 function saveNumber(event) {
   let input = event.target.textContent;
-  let regexDigitPattern = /[0-9/.]/.test(input);
-  let regexOperatorPattern = /[+\-/x]/.test(input);
+  let regexDigitPattern = /[\d.]/.test(input);
+  let regexOperatorPattern = /[+\-//x]/.test(input);
   let regexEqualPattern = /[=]/.test(input);
   let regexClearPattern = /[C]/.test(input);
   
+  
+
   if (regexDigitPattern) {
     displayValues.push(input);
   } else if (regexOperatorPattern) {
@@ -79,6 +81,7 @@ function saveNumber(event) {
     displayValues.push(result); //Save the current result for later calculations
     displayScreen.textContent = result;
     firstNumber = result;
+    secondNumber = "";
   } else if (regexClearPattern ) {
     // Clear the variables for new operations
     displayScreen.textContent = "";
