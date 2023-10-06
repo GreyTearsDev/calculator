@@ -1,28 +1,15 @@
 //==============GLOBAL VARIABLES==================//
-let firstNumber;
-let operator;
-let secondNumber;
 let digits = Array.from(document.querySelectorAll(".digit"));
-let functions = Array.from(document.querySelectorAll(".fucntion"));
 let displayScreen = document.querySelector(".display");
-let displayValue = [];
-let inputNumbers = [];
+let displayValues = [];
 
 //==============EVENT LISTENERS================//
 
 digits.forEach((x) =>
   x.addEventListener("click", (event) => {
-    let input = event.target.textContent;
-    displayValue.push(input);
+    displayOnScreen(event);
+    saveNumber(event);
   })
-);
-
-digits.forEach((x) =>
-  x.addEventListener("click", (event) => displayNumbers(event))
-);
-
-functions.forEach((x) =>
-  x.addEventListener("click", (event) => displayFunctions(event))
 );
 
 //====================FUNCTIONS==================//
@@ -46,7 +33,7 @@ function divide(firstNumber, secondNumber) {
 function operate(operator, firstNumber, secondNumber) {
   //
   if (operator == "*") {
-    multiply(firstNumber, secondNumber);
+    displayScreen.textContent += multiply(firstNumber, secondNumber);
   } else if (operator == "/") {
     divide(firstNumber, secondNumber);
   } else if (operator == "+") {
@@ -56,13 +43,31 @@ function operate(operator, firstNumber, secondNumber) {
   }
 }
 
-function displayNumbers(event) {
+function displayOnScreen(event) {
   let input = event.target.textContent;
   displayScreen.textContent += input;
 }
 
-function displayFunctions(event) {
+function saveNumber(event) {
   let input = event.target.textContent;
-  displayScreen.textContent += input;
-}
+  let regexDigitPattern = /[0-9]/.test(input);
+  let regexOperatorPattern = /[+\-/*]/.test(input);
+  let regexEqualPattern = /[=]/.test(input);
+  let firstNumber;
+  let secondNumber;
+  let operator;
 
+
+  if (regexDigitPattern) {
+    displayValues.push(input);
+  } else if (regexOperatorPattern) {
+    // Handle operators here, set operator variable
+    operator = input;
+    firstNumber = parseFloat(displayValues.join(""));
+    displayValues = []; // Clear displayValues for the next number
+  } else if (regexEqualPattern) {
+    secondNumber = parseFloat(displayValues.join(""));
+    operate(operator, firstNumber, secondNumber);
+    displayValues = []; // Clear displayValues after calculation
+  }
+}
