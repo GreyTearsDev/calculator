@@ -58,6 +58,8 @@ function saveNumber(event) {
   let regexOperatorPattern = /[+\-/x]/.test(input);
   let regexEqualPattern = /[=]/.test(input);
 
+  // if user deletes, before the number gets assign to the variables, pop the last number out
+
   if (regexDigitPattern) {
     displayValues.push(input);
   } else if (regexOperatorPattern) {
@@ -80,3 +82,6 @@ function saveNumber(event) {
     secondNumber = "";
   }
 }
+
+// add delete button
+// allow for floating point numbers
