@@ -55,7 +55,9 @@ function displayOnScreen(event) {
   let input = event.target.textContent;
   let displayIsFull = storedValues.length >= 18;
 
-  if (input !== "D" && !displayIsFull) {
+  if (input == "D") {
+    displayScreen.textContent = displayScreen.textContent.slice(0, -1);
+  } else if (!displayIsFull) {
     displayScreen.textContent += input;
   }
 }
@@ -68,10 +70,10 @@ function saveNumber(event) {
   let isOperator = /[+\-//x]/.test(input);
   let equalButtonClicked = /[=]/.test(input);
   let clearButtonClicked = /[C]/.test(input);
-  let deletePattern = /[D]/.test(input);
+  let deleteButtonClicked = /[D]/.test(input);
 
   if (isDigit) {
-    
+
     if (storedValues.length < 18) {
       storedValues.push(input);
     }
@@ -105,5 +107,7 @@ function saveNumber(event) {
     storedValues = [];
     firstNumber = "";
     secondNumber = "";
+  } else if (deleteButtonClicked) {
+    storedValues.pop(storedValues.length - 1);
   }
 }
