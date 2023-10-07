@@ -31,7 +31,7 @@ function multiply(firstNumber, secondNumber) {
 }
 
 function divide(firstNumber, secondNumber) {
-  if (firstNumber == 0 && secondNumber == 0) {
+  if (secondNumber == 0) {
     return "Undefined!";
   } else {
     return firstNumber / secondNumber;
@@ -61,31 +61,33 @@ function displayOnScreen(event) {
 
 function saveNumber(event) {
   let input = event.target.textContent;
-  let digitPattern = /[\d.]/.test(input);
-  let operatorPattern = /[+\-//x]/.test(input);
-  let equalPattern = /[=]/.test(input);
-  let clearPattern = /[C]/.test(input);
+  let ongoingCalculationExists = (operator === "");
+  let storedNumber = parseFloat(storedValues.join(""));
+  let isDigit = /[\d.]/.test(input);
+  let isOperator = /[+\-//x]/.test(input);
+  let equalButtonClicked = /[=]/.test(input);
+  let clearButtonClicked = /[C]/.test(input);
   let deletePattern = /[D]/.test(input);
 
-  if (digitPattern) {
+  if (isDigit) {
     storedValues.push(input);
-  } else if (operatorPattern) {
-
-    if (operator === "") {
+  } else if (isOperator) {
+    // Check if there is already an ongoing calculation
+    if (ongoingCalculationExists) { 
        // Handle operators here, set operator variable
        operator = input;
-       firstNumber = parseFloat(storedValues.join(""));
+       firstNumber = storedNumber
        storedValues = []; // Clear storedValues for the next number
-    } else { 
-      secondNumber = parseFloat(storedValues.join(""));
+    } else { // 
+      secondNumber = storedNumber
       result = operate(operator, firstNumber, secondNumber);
       firstNumber = result;
       storedValues = []; // Clear storedValues after calculation
       secondNumber = "";
       operator = input;
     } 
-  } else if (equalPattern) {
-    secondNumber = parseFloat(storedValues.join(""));
+  } else if (equalButtonClicked) {
+    secondNumber = storedNumber
     result = operate(operator, firstNumber, secondNumber);
     storedValues = []; // Clear storedValues after calculation
     storedValues.push(result); //Save the current result for later calculations
@@ -93,7 +95,7 @@ function saveNumber(event) {
     firstNumber = result;
     operator = '';
     secondNumber = "";
-  } else if (clearPattern) {
+  } else if (clearButtonClicked) {
     // Clear the variables for new operations
     displayScreen.textContent = "";
     storedValues = [];
