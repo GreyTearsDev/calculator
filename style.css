@@ -37,8 +37,8 @@ body {
 
 .display {
   background: linear-gradient(180deg, #ecedef, #cdcdd0 );
-  flex-basis: 100px;
-  margin-bottom: 4px;
+  flex-basis: 80px;
+  margin-bottom: 15px;
   border-radius: 5px;
   box-shadow: inset 3.5px 3.5px #00000061;
   overflow: hidden;

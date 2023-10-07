@@ -1,5 +1,6 @@
 //==============GLOBAL VARIABLES==================//
 let digits = Array.from(document.querySelectorAll(".digit"));
+let keyboard = document.body;
 let displayScreen = document.querySelector(".display");
 let storedValues = [];
 let firstNumber;
@@ -11,10 +12,17 @@ let result;
 
 digits.forEach((x) =>
   x.addEventListener("click", (event) => {
-    displayOnScreen(event);
-    saveNumber(event);
+    let input = event.target.textContent;
+    displayOnScreen(input);
+    saveNumber(input);
   })
 );
+
+keyboard.addEventListener("keydown", (event) => {
+  let input = event.key.toUpperCase();
+  displayOnScreen(input);
+  saveNumber(input);
+});
 
 //====================FUNCTIONS==================//
 
@@ -51,38 +59,42 @@ function operate(operator, firstNumber, secondNumber) {
   return 0;
 }
 
-function displayOnScreen(event) {
-  let input = event.target.textContent;
+function displayOnScreen(input) {
+  let isDigit = /[\d.]/.test(input);
+  let isOperator = /[+\-//x]/.test(input);
+  let equalButtonClicked = /[=/ENTER]/.test(input);
   let displayIsFull = storedValues.length >= 18;
   let decimalIsPresent = displayScreen.textContent.includes(".");
-  console.log(decimalIsPresent);
 
-  if (input == "D") {
-    displayScreen.textContent = displayScreen.textContent.slice(0, -1); // Delete the last element on the screen
-  } else if (!displayIsFull) {
-    if (decimalIsPresent) {
-      switch (input == ".") { // Check if the new input is a decimal point
-        case true:
-          break;
-        case false:
-          displayScreen.textContent += input; 
+  if (isDigit || isOperator || equalButtonClicked) {
+    if (input == "D" || input == "BACKSPACE") {
+      displayScreen.textContent = displayScreen.textContent.slice(0, -1); // Delete the last element on the screen
+    } else if (!displayIsFull) {
+      if (decimalIsPresent) {
+        switch (
+          input == "." // Check if the new input is a decimal point
+        ) {
+          case true:
+            break;
+          case false:
+            displayScreen.textContent += input;
+        }
+      } else {
+        displayScreen.textContent += input;
       }
-    } else {
-      displayScreen.textContent += input;
     }
   }
 }
 
-function saveNumber(event) {
-  let input = event.target.textContent;
+function saveNumber(input) {
   let ongoingCalculationExists = operator === "";
   let storedNumber = parseFloat(storedValues.join(""));
-  
+
   let isDigit = /[\d.]/.test(input);
   let isOperator = /[+\-//x]/.test(input);
-  let equalButtonClicked = /[=]/.test(input);
+  let equalButtonClicked = /[=/ENTER]/.test(input);
   let clearButtonClicked = /[C]/.test(input);
-  let deleteButtonClicked = /[D]/.test(input);
+  let deleteButtonClicked = /[D/BACKSPACE]/.test(input);
   let isDecimal = /[.]/.test(input);
 
   if (isDigit) {
@@ -132,3 +144,5 @@ function saveNumber(event) {
     storedValues.pop(storedValues.length - 1);
   }
 }
+
+//bug - multiple real numbers not showing on display (despite computing)
