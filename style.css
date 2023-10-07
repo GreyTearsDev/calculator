@@ -89,6 +89,11 @@ button {
   border: none;
   border-radius: 5px;
   box-shadow: 2px 2px #0000002d;
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.96)
 }
 
 p {

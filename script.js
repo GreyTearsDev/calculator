@@ -53,8 +53,9 @@ function operate(operator, firstNumber, secondNumber) {
 
 function displayOnScreen(event) {
   let input = event.target.textContent;
+  let displayIsFull = storedValues.length >= 18;
 
-  if (input !== "D") {
+  if (input !== "D" && !displayIsFull) {
     displayScreen.textContent += input;
   }
 }
@@ -70,7 +71,10 @@ function saveNumber(event) {
   let deletePattern = /[D]/.test(input);
 
   if (isDigit) {
-    storedValues.push(input);
+    
+    if (storedValues.length < 18) {
+      storedValues.push(input);
+    }
   } else if (isOperator) {
     // Check if there is already an ongoing calculation
     if (ongoingCalculationExists) { 
