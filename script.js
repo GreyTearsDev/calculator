@@ -1,7 +1,7 @@
 //==============GLOBAL VARIABLES==================//
 let digits = Array.from(document.querySelectorAll(".digit"));
 let displayScreen = document.querySelector(".display");
-let displayValues = [];
+let storedValues = [];
 let firstNumber;
 let secondNumber;
 let operator = "";
@@ -32,12 +32,10 @@ function multiply(firstNumber, secondNumber) {
 
 function divide(firstNumber, secondNumber) {
   if (firstNumber == 0 && secondNumber == 0) {
-    return "Undefined!"
+    return "Undefined!";
   } else {
     return firstNumber / secondNumber;
   }
-
-  
 }
 
 function operate(operator, firstNumber, secondNumber) {
@@ -55,41 +53,51 @@ function operate(operator, firstNumber, secondNumber) {
 
 function displayOnScreen(event) {
   let input = event.target.textContent;
-  displayScreen.textContent += input;
+
+  if (input !== "D") {
+    displayScreen.textContent += input;
+  }
 }
 
 function saveNumber(event) {
   let input = event.target.textContent;
-  let regexDigitPattern = /[\d.]/.test(input);
-  let regexOperatorPattern = /[+\-//x]/.test(input);
-  let regexEqualPattern = /[=]/.test(input);
-  let regexClearPattern = /[C]/.test(input);
-  
-  
+  let digitPattern = /[\d.]/.test(input);
+  let operatorPattern = /[+\-//x]/.test(input);
+  let equalPattern = /[=]/.test(input);
+  let clearPattern = /[C]/.test(input);
+  let deletePattern = /[D]/.test(input);
 
-  if (regexDigitPattern) {
-    displayValues.push(input);
-  } else if (regexOperatorPattern) {
-    // Handle operators here, set operator variable
-    operator = input;
-    firstNumber = parseFloat(displayValues.join(""));
-    displayValues = []; // Clear displayValues for the next number
-  } else if (regexEqualPattern) {
-    secondNumber = parseFloat(displayValues.join(""));
+  if (digitPattern) {
+    storedValues.push(input);
+  } else if (operatorPattern) {
+
+    if (operator === "") {
+       // Handle operators here, set operator variable
+       operator = input;
+       firstNumber = parseFloat(storedValues.join(""));
+       storedValues = []; // Clear storedValues for the next number
+    } else { 
+      secondNumber = parseFloat(storedValues.join(""));
+      result = operate(operator, firstNumber, secondNumber);
+      firstNumber = result;
+      storedValues = []; // Clear storedValues after calculation
+      secondNumber = "";
+      operator = input;
+    } 
+  } else if (equalPattern) {
+    secondNumber = parseFloat(storedValues.join(""));
     result = operate(operator, firstNumber, secondNumber);
-    displayValues = []; // Clear displayValues after calculation
-    displayValues.push(result); //Save the current result for later calculations
+    storedValues = []; // Clear storedValues after calculation
+    storedValues.push(result); //Save the current result for later calculations
     displayScreen.textContent = result;
     firstNumber = result;
+    operator = '';
     secondNumber = "";
-  } else if (regexClearPattern ) {
+  } else if (clearPattern) {
     // Clear the variables for new operations
     displayScreen.textContent = "";
-    displayValues = [];
+    storedValues = [];
     firstNumber = "";
     secondNumber = "";
   }
 }
-
-// add delete button
-// allow for floating point numbers
