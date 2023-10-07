@@ -20,6 +20,8 @@ digits.forEach((x) =>
 
 keyboard.addEventListener("keydown", (event) => {
   let input = event.key.toUpperCase();
+
+  console.log(input);
   displayOnScreen(input);
   saveNumber(input);
 });
